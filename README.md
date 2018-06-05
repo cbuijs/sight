@@ -5,3 +5,5 @@ Fitbit Clock Face based on "<a href="https://github.com/Fitbit/sdk-moment">Momen
 - Bumped/beefed-up font-sizes/weights (I wear reading-glasses)
 
 ![Alt text](https://raw.githubusercontent.com/cbuijs/sight/master/screenshots/Sight-screenshot.png "ScreenShot")
+
+<b>Note:</b> This is just to get my hands dirty and learn how to make watch-faces on Fitbit devices. More to come probably :-).
