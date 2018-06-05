@@ -23,21 +23,20 @@ const GRANULARITY = "minutes";
 
 var WEATHERINTERVAL = 30;
 var WEATHERCOUNT = 0;
-var WEATHERDATA = null;
 
 weather.setProvider("yahoo"); 
 weather.setApiKey("");
-weather.setMaximumAge(25 * 1000); 
+weather.setMaximumAge(30 * 60 * 1000); 
 weather.setFeelsLike(true);
 
 weather.onsuccess = (data) => {
   console.log("Weather is " + JSON.stringify(data));
-  WEATHERDATA = data;
+  txtWeather.text = data.location + " " + data.temperatureC + "°C";
 }
 
 weather.onerror = (error) => {
   console.log("Weather error " + error);
-  txtWeather.text = "Weather Error";
+  txtWeather.text = error;
 }
 
 weather.fetch();
@@ -46,15 +45,7 @@ weather.fetch();
 function clockCallback(data) {
   txtTime.text = data.time;
   txtDate.text = data.date;
-  if (WEATHERCOUNT < 2) {
-    WEATHERCOUNT = WEATHERINTERVAL
-    weather.fetch();    
-  } else {
-    WEATHERCOUNT = WEATHERCOUNT - 1;
-  }
-  if (WEATHERDATA) {
-    txtWeather.text = WEATHERDATA.location + " " + WEATHERDATA.temperatureC + "°C";
-  }
+  weather.fetch();    
 }
 simpleClock.initialize(GRANULARITY, "longDate", clockCallback);
 
@@ -67,6 +58,7 @@ function activityCallback(data) {
     // Reposition the activity icon to the left of the variable length text
     img.x = txt.getBBox().x - txt.parent.getBBox().x - img.width - 7;
   });
+  weather.fetch();
 }
 simpleActivity.initialize(GRANULARITY, activityCallback);
 
