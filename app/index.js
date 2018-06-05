@@ -22,7 +22,7 @@ let weather = new Weather();
 const GRANULARITY = "minutes";
 
 var WEATHERINTERVAL = 30;
-var WEATHERCOUNT = WEATHERINTERVAL;
+var WEATHERCOUNT = 0;
 var WEATHERDATA = null;
 
 weather.setProvider("yahoo"); 
@@ -32,15 +32,12 @@ weather.setFeelsLike(false);
 
 weather.onsuccess = (data) => {
   console.log("Weather is " + JSON.stringify(data));
-  WEATHERDATA = data
-  
+  WEATHERDATA = data;
 }
 
 weather.onerror = (error) => {
   console.log("Weather error " + error);
 }
-
-weather.fetch();
 
 
 /* --------- CLOCK ---------- */
@@ -50,10 +47,10 @@ function clockCallback(data) {
   if (WEATHERCOUNT < 2) {
     WEATHERCOUNT = WEATHERINTERVAL
     weather.fetch();
+    txtWeather.text = WEATHERDATA.location + " " + WEATHERDATA.temperatureC + "°C";
   } else {
     WEATHERCOUNT = WEATHERCOUNT - 1;
   }
-  txtWeather.text = WEATHERDATA.location + " " + WEATHERDATA.temperatureC + "°C";
 }
 simpleClock.initialize(GRANULARITY, "longDate", clockCallback);
 
@@ -115,6 +112,9 @@ function settingsCallback(data) {
   }
   if (data.colorImgHRM) {
     imgHRM.style.fill = data.colorImgHRM;
+  }
+  if (data.colorWeather) {
+    txtWeather.style.fill = data.colorWeather;
   }
 }
 simpleSettings.initialize(settingsCallback);

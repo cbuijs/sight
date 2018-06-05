@@ -57,7 +57,8 @@ const options = [
   ['Date Color', 'colorDate'],
   ['Activity Color', 'colorActivity'],
   ['HRM Text Color', 'colorHRM'],
-  ['HRM Heart Color', 'colorImgHRM']
+  ['HRM Heart Color', 'colorImgHRM'],
+  ['Weather Color', 'colorWeather']
 ];
 
 function mySettings(props) {
