@@ -27,7 +27,7 @@ var WEATHERDATA = null;
 
 weather.setProvider("yahoo"); 
 weather.setApiKey("");
-weather.setMaximumAge(25 * 60 * 1000); 
+weather.setMaximumAge(25 * 1000); 
 weather.setFeelsLike(false);
 
 weather.onsuccess = (data) => {
@@ -37,7 +37,7 @@ weather.onsuccess = (data) => {
 
 weather.onerror = (error) => {
   console.log("Weather error " + error);
-  txtWeather.text = error;
+  txtWeather.text = "Weather Error";
 }
 
 /* --------- CLOCK ---------- */
