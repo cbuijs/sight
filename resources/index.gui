@@ -1,10 +1,10 @@
 <svg>
   <rect id="background" />
-  <text id="txtWeather" class="weather-text">Weather</text>
+  <text id="txtWeather" class="weather-text" />
   <rect class="divider divider-top" />
-  <text id="txtTime" class="clock-text">13:37</text>
+  <text id="txtTime" class="clock-text" />
   <rect class="divider divider-mid" />
-  <text id="txtDate" class="date-text">MON JAN 01</text>
+  <text id="txtDate" class="date-text" />
   <rect class="divider divider-btm" />
   <svg class="stats">
     <use id="iconHRM" href="#heart-beat" />

@@ -39,17 +39,18 @@ weather.onerror = (error) => {
   console.log("Weather error " + error);
 }
 
-
 /* --------- CLOCK ---------- */
 function clockCallback(data) {
   txtTime.text = data.time;
   txtDate.text = data.date;
   if (WEATHERCOUNT < 2) {
     WEATHERCOUNT = WEATHERINTERVAL
-    weather.fetch();
-    txtWeather.text = WEATHERDATA.location + " " + WEATHERDATA.temperatureC + "°C";
+    weather.fetch();    
   } else {
     WEATHERCOUNT = WEATHERCOUNT - 1;
+  }
+  if (WEATHERDATA) {
+    txtWeather.text = WEATHERDATA.location + " " + WEATHERDATA.temperatureC + "°C";
   }
 }
 simpleClock.initialize(GRANULARITY, "longDate", clockCallback);
