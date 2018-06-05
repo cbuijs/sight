@@ -4,6 +4,8 @@ import * as simpleActivity from "./simple/activity";
 import * as simpleClock from "./simple/clock";
 import * as simpleHRM from "./simple/hrm";
 import * as simpleSettings from "./simple/device-settings";
+import * as messaging from "messaging";
+import { battery } from "power";
 import Weather from '../common/weather/device';
 
 let background = document.getElementById("background");
@@ -11,6 +13,7 @@ let dividers = document.getElementsByClassName("divider");
 let txtTime = document.getElementById("txtTime");
 let txtDate = document.getElementById("txtDate");
 let txtWeather = document.getElementById("txtWeather");
+let txtBattery = document.getElementById("txtBattery");
 let txtHRM = document.getElementById("txtHRM");
 let iconHRM = document.getElementById("iconHRM");
 let imgHRM = iconHRM.getElementById("icon");
@@ -21,30 +24,40 @@ let weather = new Weather();
 
 const GRANULARITY = "minutes";
 
-var WEATHERINTERVAL = 30;
-var WEATHERCOUNT = 0;
+txtWeather.text = "...";
+txtBattery.text = "0%";
 
 weather.setProvider("yahoo"); 
 weather.setApiKey("");
-weather.setMaximumAge(30 * 60 * 1000); 
+weather.setMaximumAge(30 * 60 * 1000); // 30 Minutes
 weather.setFeelsLike(true);
 
 weather.onsuccess = (data) => {
   console.log("Weather is " + JSON.stringify(data));
-  txtWeather.text = data.location + " " + data.temperatureC + "°C";
+  txtWeather.text = data.location.substring(0,9).toUpperCase() + " " + data.temperatureC + "°C";
 }
 
 weather.onerror = (error) => {
   console.log("Weather error " + error);
-  txtWeather.text = error;
+  txtWeather.text = error.substring(0,12).toUpperCase();
 }
 
-weather.fetch();
+messaging.peerSocket.onopen = () => {
+  console.log("App Socket Open, Weather Fetch");
+  weather.fetch();
+};
+
+messaging.peerSocket.close = () => {
+  console.log("App Socket Closed");
+};
 
 /* --------- CLOCK ---------- */
 function clockCallback(data) {
   txtTime.text = data.time;
   txtDate.text = data.date;
+
+  txtBattery.text = battery.chargeLevel + "%";
+  
   weather.fetch();    
 }
 simpleClock.initialize(GRANULARITY, "longDate", clockCallback);
@@ -58,7 +71,6 @@ function activityCallback(data) {
     // Reposition the activity icon to the left of the variable length text
     img.x = txt.getBBox().x - txt.parent.getBBox().x - img.width - 7;
   });
-  weather.fetch();
 }
 simpleActivity.initialize(GRANULARITY, activityCallback);
 
@@ -111,6 +123,9 @@ function settingsCallback(data) {
   }
   if (data.colorWeather) {
     txtWeather.style.fill = data.colorWeather;
+  }
+  if (data.colorBattery) {
+    txtBattery.style.fill = data.colorBattery;    
   }
 }
 simpleSettings.initialize(settingsCallback);

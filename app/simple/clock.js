@@ -46,7 +46,7 @@ function tickHandler(evt) {
       dateString = `${dayNumber} ${monthName}`;
       break;
     case "longDate":
-      dateString = `${dayName} ${monthName} ${dayNumber}`;
+      dateString = `${dayName} ${monthNameShort} ${dayNumber}`;
       break;
   }
   clockCallback({time: timeString, date: dateString});

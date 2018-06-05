@@ -6,13 +6,26 @@
   fill: #000000;
 }
 
+.battery-text {
+  font-family: SevilleSharp;
+  font-size: 15;
+  font-weight: bold;
+  text-anchor: end;
+  text-length: 32;
+  x: 92%;
+  y: 8%;
+  width: 100%;
+  height: 100%;
+  fill: #FFFFFF;
+}
+
 .clock-text {
   font-family: Colfax-Bold;
-  font-size: 112;
+  font-size: 100;
   text-anchor: middle;
   text-length: 10;
   x: 50%;
-  y: 54%;
+  y: 58%;
   width: 100%;
   height: 100%;
   fill: #FA1E43;
@@ -25,7 +38,7 @@
   text-anchor: middle;
   text-length: 32;
   x: 50%;
-  y: 13%;
+  y: 23%;
   width: 100%;
   height: 100%;
   fill: #FFFFFF;
@@ -51,15 +64,19 @@
   fill: #646464;
 }
 
-.divider-top {
-  y: 17%
+.divider-one {
+  y: 10%
 }
 
-.divider-mid {
+.divider-two {
+  y: 28%
+}
+
+.divider-three {
   y: 64%;
 }
 
-.divider-btm {
+.divider-four {
   y: 80%;
 }
 

@@ -1,11 +1,13 @@
 <svg>
   <rect id="background" />
-  <text id="txtWeather" class="weather-text" />
-  <rect class="divider divider-top" />
-  <text id="txtTime" class="clock-text" />
-  <rect class="divider divider-mid" />
-  <text id="txtDate" class="date-text" />
-  <rect class="divider divider-btm" />
+  <text id="txtWeather" class="weather-text">...</text>
+  <rect class="divider divider-one" />
+  <text id="txtBattery" class="battery-text">0%</text>
+  <rect class="divider divider-two" />
+  <text id="txtTime" class="clock-text">00:00</text>
+  <rect class="divider divider-three" />
+  <text id="txtDate" class="date-text">Sun 01 Jan</text>
+  <rect class="divider divider-four" />
   <svg class="stats">
     <use id="iconHRM" href="#heart-beat" />
     <text id="txtHRM" class="stat-left" />
