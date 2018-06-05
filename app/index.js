@@ -37,6 +37,7 @@ weather.onsuccess = (data) => {
 
 weather.onerror = (error) => {
   console.log("Weather error " + error);
+  txtWeather.text = error;
 }
 
 /* --------- CLOCK ---------- */
