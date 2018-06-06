@@ -33,8 +33,14 @@ weather.setMaximumAge(30 * 60 * 1000); // 30 Minutes
 weather.setFeelsLike(true);
 
 weather.onsuccess = (data) => {
+  var loc;
+  var len
+  var temp;
   console.log("Weather is " + JSON.stringify(data));
-  txtWeather.text = data.location.substring(0,9).toUpperCase() + " " + data.temperatureC + "°C";
+  temp = data.temperatureC + "°C";
+  len = 13 - temp.length;
+  loc = data.location.substring(0,len).toUpperCase();
+  txtWeather.text = loc + " " + temp;
 }
 
 weather.onerror = (error) => {

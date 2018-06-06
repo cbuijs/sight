@@ -11,7 +11,7 @@
   font-size: 15;
   font-weight: bold;
   text-anchor: end;
-  text-length: 32;
+  text-length: 4;
   x: 92%;
   y: 8%;
   width: 100%;
@@ -23,7 +23,7 @@
   font-family: Colfax-Bold;
   font-size: 100;
   text-anchor: middle;
-  text-length: 10;
+  text-length: 5;
   x: 50%;
   y: 58%;
   width: 100%;
@@ -36,7 +36,7 @@
   font-size: 32;
   font-weight: bold;
   text-anchor: middle;
-  text-length: 32;
+  text-length: 15;
   x: 50%;
   y: 23%;
   width: 100%;
@@ -49,7 +49,7 @@
   font-size: 32;
   font-weight: bold;
   text-anchor: middle;
-  text-length: 32;
+  text-length: 15;
   x: 50%;
   y: 76%;
   width: 100%;
