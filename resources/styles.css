@@ -6,9 +6,22 @@
   fill: #000000;
 }
 
+.version-text {
+  font-family: SevilleSharp;
+  font-size: 20;
+  font-weight: bold;
+  text-anchor: start;
+  text-length: 4;
+  x: 8%;
+  y: 8%;
+  width: 100%;
+  height: 100%;
+  fill: #FFFFFF;
+}
+
 .battery-text {
   font-family: SevilleSharp;
-  font-size: 15;
+  font-size: 20;
   font-weight: bold;
   text-anchor: end;
   text-length: 4;
@@ -21,7 +34,7 @@
 
 .clock-text {
   font-family: Colfax-Bold;
-  font-size: 100;
+  font-size: 102;
   text-anchor: middle;
   text-length: 5;
   x: 50%;
@@ -31,25 +44,52 @@
   fill: #FA1E43;
 }
 
-.weather-text {
+.weather-temp {
   font-family: SevilleSharp;
-  font-size: 32;
+  font-size: 54;
   font-weight: bold;
-  text-anchor: middle;
-  text-length: 15;
-  x: 50%;
-  y: 23%;
-  width: 100%;
+  text-anchor: start;
+  text-length: 20;
+  x: 8%;
+  y: 25%;
+  width: 32%;
+  height: 100%;
+  fill: #FFFFFF;
+}
+
+.weather-text1 {
+  font-family: SevilleSharp;
+  font-size: 26;
+  font-weight: bold;
+  text-anchor: end;
+  text-length: 20;
+  text-decoration: underline;
+  x: 92%;
+  y: 18%;
+  width: 60%;
+  height: 100%;
+  fill: #FFFFFF;
+}
+
+.weather-text2 {
+  font-family: SevilleSharp;
+  font-size: 26;
+  font-weight: bold;
+  text-anchor: end;
+  text-length: 20;
+  x: 92%;
+  y: 26%;
+  width: 60%;
   height: 100%;
   fill: #FFFFFF;
 }
 
 .date-text {
   font-family: SevilleSharp;
-  font-size: 32;
+  font-size: 36;
   font-weight: bold;
   text-anchor: middle;
-  text-length: 15;
+  text-length: 10;
   x: 50%;
   y: 76%;
   width: 100%;
@@ -81,30 +121,30 @@
 }
 
 .stats {
-  x: 50%-111;
+  x: 8%;
   y: 79%;
-  width: 222;
+  width: 92%;
   height: 48;
 }
 
 .stats text {
   font-family: SevilleSharp;
-  font-size: 32;
+  font-size: 36;
   font-weight: bold;
-  text-length: 16;
+  text-length: 18;
   fill: #FFFFFF;
 }
 
 #iconHRM {
-  width: 24;
-  height: 24;
-  y: 15;
-  x: 1;
+  width: 36;
+  height: 36;
+  y: 25%;
+  x: 0%;
   fill: #FF214A;
 }
 
 .stat-left {
-  x: 31;
+  x: 15%;
 }
 
 .stat-right {
@@ -114,14 +154,14 @@
 }
 
 #stats-cycle {
-  x: 40%;
+  x: 32%;
   y: 0;
   width: 60%;
   height: 100%;
 }
 
 .cycle-item image {
-  x: 50%;
+  x: 45%;
   y: 15;
   fill: #FFFFFF;
   width: 24;

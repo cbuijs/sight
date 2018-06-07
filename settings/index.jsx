@@ -50,6 +50,10 @@ const colorSet = [
   {color: "red"}       
 ];
 
+const toggles = [
+  ['Use Fahrenheit (On) or Celcius (Off)', 'Fahrenheit', 'toggleFahrenheit']
+];
+
 const options = [
   ['Background Color', 'colorBackground'],
   ['Dividers Color', 'colorDividers'],
@@ -62,9 +66,18 @@ const options = [
   ['Battery Color', 'colorBattery']
 ];
 
+
 function mySettings(props) {
   return (
     <Page>
+      {toggles.map(([title, label, settingsKey]) =>
+        <Section
+          title={title}>
+          <Toggle
+            label={label}
+            settingsKey={settingsKey} />
+        </Section>
+      )}
       {options.map(([title, settingsKey]) =>
         <Section
           title={title}>

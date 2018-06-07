@@ -1,12 +1,15 @@
 <svg>
   <rect id="background" />
-  <text id="txtWeather" class="weather-text">...</text>
+  <text id="txtVersion" class="version-text">v0.82</text>
+  <text id="txtBattery" class="battery-text" />
   <rect class="divider divider-one" />
-  <text id="txtBattery" class="battery-text">0%</text>
+  <text id="txtWeather1" class="weather-text1" />
+  <text id="txtWeather2" class="weather-text2" />
+  <text id="txtWeathertemp" class="weather-temp" />
   <rect class="divider divider-two" />
-  <text id="txtTime" class="clock-text">00:00</text>
+  <text id="txtTime" class="clock-text" />
   <rect class="divider divider-three" />
-  <text id="txtDate" class="date-text">Sun 01 Jan</text>
+  <text id="txtDate" class="date-text" />
   <rect class="divider divider-four" />
   <svg class="stats">
     <use id="iconHRM" href="#heart-beat" />
@@ -32,6 +35,7 @@
         <image href="images/active_minutes.png" class="image" />
         <text class="stat-right" />
       </use>
+      
     </use>
   </svg>
 </svg>

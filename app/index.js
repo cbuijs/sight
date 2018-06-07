@@ -12,8 +12,11 @@ let background = document.getElementById("background");
 let dividers = document.getElementsByClassName("divider");
 let txtTime = document.getElementById("txtTime");
 let txtDate = document.getElementById("txtDate");
-let txtWeather = document.getElementById("txtWeather");
+let txtWeathertemp = document.getElementById("txtWeathertemp");
+let txtWeather1 = document.getElementById("txtWeather1");
+let txtWeather2 = document.getElementById("txtWeather2");
 let txtBattery = document.getElementById("txtBattery");
+let txtVersion = document.getElementById("txtVersion");
 let txtHRM = document.getElementById("txtHRM");
 let iconHRM = document.getElementById("iconHRM");
 let imgHRM = iconHRM.getElementById("icon");
@@ -22,30 +25,34 @@ let statsCycleItems = statsCycle.getElementsByClassName("cycle-item");
 
 let weather = new Weather();
 
-const GRANULARITY = "minutes";
+let weatherUnits = "C";
 
-txtWeather.text = "...";
-txtBattery.text = "0%";
+const GRANULARITY = "minutes";
 
 weather.setProvider("yahoo"); 
 weather.setApiKey("");
 weather.setMaximumAge(30 * 60 * 1000); // 30 Minutes
-weather.setFeelsLike(true);
+weather.setFeelsLike(false);
 
 weather.onsuccess = (data) => {
   var loc;
   var len
   var temp;
   console.log("Weather is " + JSON.stringify(data));
-  temp = data.temperatureC + "°C";
-  len = 13 - temp.length;
-  loc = data.location.substring(0,len).toUpperCase();
-  txtWeather.text = loc + " " + temp;
+  if ( weatherUnits === "C") {
+    temp = data.temperatureC + "°";    
+  } else {
+    temp = data.temperatureF + "°";
+  }
+  txtWeathertemp.text = temp;
+  txtWeather1.text = data.location.substring(0,21);
+  txtWeather2.text = data.description.substring(0,21);
 }
 
 weather.onerror = (error) => {
   console.log("Weather error " + error);
-  txtWeather.text = error.substring(0,12).toUpperCase();
+  txtWeather1.text = error.substring(0,24).toUpperCase();
+  txtWeather2.text = error.substring(25,24).toUpperCase();
 }
 
 messaging.peerSocket.onopen = () => {
@@ -75,7 +82,7 @@ function activityCallback(data) {
     let txt = img.nextSibling;
     txt.text = data[Object.keys(data)[index]].pretty;
     // Reposition the activity icon to the left of the variable length text
-    img.x = txt.getBBox().x - txt.parent.getBBox().x - img.width - 7;
+    img.x = txt.getBBox().x - txt.parent.getBBox().x - img.width - 2;
   });
 }
 simpleActivity.initialize(GRANULARITY, activityCallback);
@@ -128,10 +135,19 @@ function settingsCallback(data) {
     imgHRM.style.fill = data.colorImgHRM;
   }
   if (data.colorWeather) {
-    txtWeather.style.fill = data.colorWeather;
+    txtWeathertemp.style.fill = data.colorWeather;
+    txtWeather1.style.fill = data.colorWeather;
+    txtWeather2.style.fill = data.colorWeather;
   }
   if (data.colorBattery) {
     txtBattery.style.fill = data.colorBattery;    
+    txtVersion.style.fill = data.colorBattery;
   }
+  if (data.toggleFahrenheit === true) {
+    weatherUnits = "F";
+  } else {
+    weatherUnits = "C";
+  }
+  weather.fetch();
 }
 simpleSettings.initialize(settingsCallback);

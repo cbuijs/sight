@@ -11,7 +11,8 @@ import * as messaging from "messaging";
 const SETTINGS_TYPE = "cbor";
 const SETTINGS_FILE = "settings.cbor";
 
-let settings, onsettingschange;
+let settings;
+let onsettingschange;
 
 export function initialize(callback) {
   settings = loadSettings();
@@ -21,7 +22,10 @@ export function initialize(callback) {
 
 // Received message containing settings data
 messaging.peerSocket.addEventListener("message", function(evt) {
+  console.log("App received: " + JSON.stringify(evt));
+  console.log("Old Settings: " + JSON.stringify(settings));
   settings[evt.data.key] = evt.data.value;
+  console.log("New Settings: " + JSON.stringify(settings));
   onsettingschange(settings);
 })
 

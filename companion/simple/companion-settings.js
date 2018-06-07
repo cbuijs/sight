@@ -10,6 +10,7 @@ export function initialize() {
 }
 
 function sendValue(key, val) {
+  console.log("Companion Sending: " + key + ":" + val)
   if (val) {
     sendSettingData({
       key: key,
