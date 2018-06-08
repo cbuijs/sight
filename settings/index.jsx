@@ -51,39 +51,59 @@ const colorSet = [
 ];
 
 const toggles = [
-  ['Use Fahrenheit (On) or Celcius (Off)', 'Fahrenheit', 'toggleFahrenheit']
+  ['Fahrenheit', 'toggleFahrenheit']
 ];
 
 const options = [
-  ['Background Color', 'colorBackground'],
-  ['Dividers Color', 'colorDividers'],
-  ['Time Color', 'colorTime'],
-  ['Date Color', 'colorDate'],
-  ['Activity Color', 'colorActivity'],
-  ['HRM Text Color', 'colorHRM'],
-  ['HRM Heart Color', 'colorImgHRM'],
-  ['Weather Color', 'colorWeather'],
-  ['Battery Color', 'colorBattery']
+  ['Custom Background Color', 'colorBackground'],
+  ['Custom Dividers Color', 'colorDividers'],
+  ['Custom Time Color', 'colorTime'],
+  ['Custom Date Color', 'colorDate'],
+  ['Custom Activity Color', 'colorActivity'],
+  ['Custom HRM Text Color', 'colorHRM'],
+  ['Custom HRM Heart Color', 'colorImgHRM'],
+  ['Custom Weather Color', 'colorWeather'],
+  ['Custom Status-Line Color', 'colorBattery']
 ];
 
 
 function mySettings(props) {
   return (
     <Page>
-      {toggles.map(([title, label, settingsKey]) =>
-        <Section
-          title={title}>
-          <Toggle
-            label={label}
-            settingsKey={settingsKey} />
-        </Section>
+      {toggles.map(([label, settingsKey]) =>       
+        <Toggle
+          label={label}
+          settingsKey={settingsKey}
+        />
       )}
+      <Select
+        label="Weather Update Interval"
+        settingsKey="updateInterval"
+        options={[
+          {name:"5 minutes", value:"5"},
+          {name:"15 minutes", value:"15"},
+          {name:"30 minutes", value:"30"},
+          {name:"1 hour", value:"60"},
+          {name:"2 hour", value:"120"},
+          {name:"4 hour", value:"240"}
+        ]}
+      />
+      <Select
+        label="Color Theme"
+        settingsKey="colorTheme"
+        options={[
+          {name:"Default", value:"default"},
+          {name:"Night Vision", value:"night"},
+          {name:"Rhodopsin", value:"red"},
+          {name:"Custom (see below)", value:"custom"}
+        ]}
+      />
       {options.map(([title, settingsKey]) =>
-        <Section
-          title={title}>
+        <Section title={title}>
           <ColorSelect
             settingsKey={settingsKey}
-            colors={colorSet} />
+            colors={colorSet}
+          />
         </Section>
       )}
     </Page>

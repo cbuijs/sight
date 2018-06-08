@@ -16,7 +16,7 @@
   y: 8%;
   width: 100%;
   height: 100%;
-  fill: #FFFFFF;
+  fill: #646464;
 }
 
 .battery-text {
@@ -29,7 +29,7 @@
   y: 8%;
   width: 100%;
   height: 100%;
-  fill: #FFFFFF;
+  fill: #646464;
 }
 
 .clock-text {
@@ -46,12 +46,12 @@
 
 .weather-temp {
   font-family: SevilleSharp;
-  font-size: 54;
+  font-size: 60;
   font-weight: bold;
   text-anchor: start;
   text-length: 20;
   x: 8%;
-  y: 25%;
+  y: 26%;
   width: 32%;
   height: 100%;
   fill: #FFFFFF;
@@ -136,11 +136,11 @@
 }
 
 #iconHRM {
-  width: 36;
-  height: 36;
-  y: 25%;
+  width: 38;
+  height: 38;
+  y: 21%;
   x: 0%;
-  fill: #FF214A;
+  fill: #FA1E43;
 }
 
 .stat-left {

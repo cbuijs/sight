@@ -22,10 +22,10 @@ export function initialize(callback) {
 
 // Received message containing settings data
 messaging.peerSocket.addEventListener("message", function(evt) {
-  console.log("App received: " + JSON.stringify(evt));
-  console.log("Old Settings: " + JSON.stringify(settings));
+  console.log("App received: " + evt.data.key + ":" + evt.data.value);
+  //console.log("Old Settings: " + JSON.stringify(settings));
   settings[evt.data.key] = evt.data.value;
-  console.log("New Settings: " + JSON.stringify(settings));
+  //console.log("New Settings: " + JSON.stringify(settings));
   onsettingschange(settings);
 })
 

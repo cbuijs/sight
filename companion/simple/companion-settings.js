@@ -10,11 +10,16 @@ export function initialize() {
 }
 
 function sendValue(key, val) {
-  console.log("Companion Sending: " + key + ":" + val)
   if (val) {
+    let checkval = JSON.stringify(val).indexOf("values");
+    if (checkval > -1) {
+      val = JSON.parse(val).values[0].value;
+    } else {
+      val = JSON.parse(val);
+    }
     sendSettingData({
       key: key,
-      value: JSON.parse(val)
+      value: val
     });
   }
 }

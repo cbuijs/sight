@@ -1,6 +1,6 @@
 <svg>
   <rect id="background" />
-  <text id="txtVersion" class="version-text">v0.82</text>
+  <text id="txtVersion" class="version-text">v0.91</text>
   <text id="txtBattery" class="battery-text" />
   <rect class="divider divider-one" />
   <text id="txtWeather1" class="weather-text1" />

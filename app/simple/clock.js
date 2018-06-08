@@ -20,10 +20,8 @@ export function initialize(granularity, dateFormatString, callback) {
 function tickHandler(evt) {
   let today = evt.date;
   let dayName = days[today.getDay()];
-  let month = util.zeroPad(today.getMonth() + 1);
-  let monthName = months[today.getMonth()];
   let monthNameShort = monthsShort[today.getMonth()];
-  let dayNumber = util.zeroPad(today.getDate());
+  let dayNumber = today.getDate();
 
   let hours = today.getHours();
   if (preferences.clockDisplay === "12h") {
@@ -32,22 +30,14 @@ function tickHandler(evt) {
   } else {
     // 24h format
     hours = util.zeroPad(hours);
+    dayNumber = util.zeroPad(dayNumber);
   }
   let mins = util.zeroPad(today.getMinutes());
 
   let timeString = `${hours}:${mins}`;
   let dateString = today;
 
-  switch(dateFormat) {
-    case "shortDate":
-      dateString = `${dayNumber} ${monthNameShort}`;
-      break;
-    case "mediumDate":
-      dateString = `${dayNumber} ${monthName}`;
-      break;
-    case "longDate":
-      dateString = `${dayName} ${monthNameShort} ${dayNumber}`;
-      break;
-  }
+  dateString = `${dayName} ${dayNumber} ${monthNameShort}`;
+  
   clockCallback({time: timeString, date: dateString});
 }
