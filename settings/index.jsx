@@ -62,7 +62,8 @@ const options = [
   ['Custom Activity Color', 'colorActivity'],
   ['Custom HRM Text Color', 'colorHRM'],
   ['Custom HRM Heart Color', 'colorImgHRM'],
-  ['Custom Weather Color', 'colorWeather'],
+  ['Custom Weather Info Color', 'colorWeather'],
+  ['Custom Weather Temperature Color', 'colorWeathertemp'],
   ['Custom Status-Line Color', 'colorBattery']
 ];
 
@@ -80,6 +81,8 @@ function mySettings(props) {
         label="Weather Update Interval"
         settingsKey="updateInterval"
         options={[
+          {name:"1 minutes (for testing only)", value:"1"},
+          {name:"2 minutes (for testing only)", value:"2"},
           {name:"5 minutes", value:"5"},
           {name:"15 minutes", value:"15"},
           {name:"30 minutes", value:"30"},

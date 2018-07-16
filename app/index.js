@@ -16,6 +16,7 @@ let txtWeathertemp = document.getElementById("txtWeathertemp");
 let txtWeather1 = document.getElementById("txtWeather1");
 let txtWeather2 = document.getElementById("txtWeather2");
 let txtBattery = document.getElementById("txtBattery");
+let txtInfo = document.getElementById("txtInfo");
 let txtVersion = document.getElementById("txtVersion");
 let txtHRM = document.getElementById("txtHRM");
 let iconHRM = document.getElementById("iconHRM");
@@ -27,6 +28,7 @@ let weather = new Weather();
 
 let weatherUnits = "C";
 let weatherFetch = 30; // Pull every thirty-minutes
+let weatherTimeleft = 0;
 
 let currentTheme = "default";
 let customTheme;
@@ -39,8 +41,6 @@ weather.setMaximumAge(weatherFetch * 60 * 1000); // 30 Minutes
 weather.setFeelsLike(false);
 
 weather.onsuccess = (data) => {
-  var loc;
-  var len
   var temp;
   console.log("Weather is " + JSON.stringify(data));
   if ( weatherUnits === "C") {
@@ -49,33 +49,60 @@ weather.onsuccess = (data) => {
     temp = data.temperatureF;
   }
   txtWeathertemp.text = Math.round(temp) + "°";
-  txtWeather1.text = data.location.substring(0,21);
-  txtWeather2.text = data.description.substring(0,21);
+  txtWeather1.text = data.location; //.substring(0,30);
+  let time = Date().replace(/\s+/," ").split(" ")[4].split(":");
+  let displaytime = time[0] + ":" + time[1];
+  let desc = data.description;
+  txtWeather2.text = displaytime + " " + desc; //.substring(0,);
+  if ( txtWeather2.getBBox().x < 93 ) {
+    txtWeather2.text = displaytime + " " + desc.replace(/[\sAaEeIiOoUu]/g, ""); //.substring(0,);
+  }
 }
 
 weather.onerror = (error) => {
   console.log("Weather error " + error);
-  txtWeather1.text = error.substring(0,24).toUpperCase();
-  txtWeather2.text = error.substring(25,24).toUpperCase();
+  txtWeather1.text = error.substring(0,30);
+  txtWeather2.text = error.substring(30,30);
 }
 
 messaging.peerSocket.onopen = () => {
   console.log("App Socket Open, Weather Fetch");
-  weather.fetch();
+  getWeather();
 };
 
 messaging.peerSocket.close = () => {
   console.log("App Socket Closed");
 };
 
+function getWeather() {
+  console.log("Getting The Weather");
+  weatherTimeleft = weatherFetch;
+  weather.fetch();
+}
+
 /* --------- CLOCK ---------- */
 function clockCallback(data) {
+  console.log("Updating Time/Date " + data.time + " " + data.date);
   txtTime.text = data.time;
   txtDate.text = data.date;
 
   txtBattery.text = battery.chargeLevel + "%";
-  
-  weather.fetch();    
+  console.log("Battery Chargelevel: " + battery.chargeLevel + "%");
+  if (battery.chargelevel < 15) {
+    txtBattery.style.fill = "red";
+  } else {
+    if (battery.chargelevel < 40) {
+      txtBattery.style.fill = "orange"; 
+    } else {
+      txtBattery.style.fill = "lime";
+    }
+  }
+  weatherTimeleft--;
+  if (weatherTimeleft < 1) {
+    console.log("Fetching Weather Interval");
+    getWeather();
+  }
+  console.log("Weather Time Left: " + weatherTimeleft + " minutes");  
 }
 simpleClock.initialize(GRANULARITY, "longDate", clockCallback);
 
@@ -143,11 +170,10 @@ function settingsCallback(data) {
         imgHRM.style.fill = "lime";
         data.colorImgHRM = "lime"
         txtWeathertemp.style.fill = "lime";
-        data.colorWeather = "lime";
+        data.colorWeathertemp = "lime";
         txtWeather1.style.fill = "lime";
         data.colorWeather = "lime";
         txtWeather2.style.fill = "lime";
-        data.colorWeather = "lime";
         txtBattery.style.fill = "darkgreen";
         data.colorBattery = "darkgreen";    
         txtVersion.style.fill = "darkgreen";
@@ -177,11 +203,10 @@ function settingsCallback(data) {
         imgHRM.style.fill = "red";
         data.colorImgHRM = "red"
         txtWeathertemp.style.fill = "red";
-        data.colorWeather = "red";
+        data.colorWeathertemp = "red";
         txtWeather1.style.fill = "red";
         data.colorWeather = "red";
         txtWeather2.style.fill = "red";
-        data.colorWeather = "red";
         txtBattery.style.fill = "darkred";
         data.colorBattery = "darkred";    
         txtVersion.style.fill = "darkred";
@@ -214,12 +239,11 @@ function settingsCallback(data) {
         data.colorHRM = "white";
         imgHRM.style.fill = "red";
         data.colorImgHRM = "red"
-        txtWeathertemp.style.fill = "white";
-        data.colorWeather = "white";
+        txtWeathertemp.style.fill = "yellow";
+        data.colorWeathertemp = "yellow";
         txtWeather1.style.fill = "white";
         data.colorWeather = "white";
         txtWeather2.style.fill = "white";
-        data.colorWeather = "white";
         txtBattery.style.fill = "dimgrey";
         data.colorBattery = "dimgrey";    
         txtVersion.style.fill = "dimgrey";
@@ -230,10 +254,8 @@ function settingsCallback(data) {
   
   if (data.updateInterval !== weatherFetch) {
     console.log("Weather Interval set to " + data.updateInterval + " minutes");
-    weather.setMaximumAge(0);
-    weather.fetch();
+    getWeather();
     weatherFetch = data.updateInterval;
-    weather.setMaximumAge(weatherFetch * 60 * 1000);
   }
   
   if (data.colorTheme === "custom") {
@@ -271,15 +293,19 @@ function settingsCallback(data) {
     if (data.colorImgHRM) {
       imgHRM.style.fill = data.colorImgHRM;
     }
+    
+    if (data.colorWeathertemp) {
+      txtWeathertemp.style.fill = data.colorWeathertemp;
+    }
   
     if (data.colorWeather) {
-      txtWeathertemp.style.fill = data.colorWeather;
       txtWeather1.style.fill = data.colorWeather;
       txtWeather2.style.fill = data.colorWeather;
     }
   
     if (data.colorBattery) {
-      txtBattery.style.fill = data.colorBattery;    
+      txtBattery.style.fill = data.colorBattery;   
+      txtInfo.style.fill = data.colorBattery;
       txtVersion.style.fill = data.colorBattery;
     }
   }
@@ -291,9 +317,7 @@ function settingsCallback(data) {
     weatherUnits = "C";
   }
   if (weatherUnits !== oldweatherUnits) {
-    //weather.setMaximumAge(0);
-    weather.fetch();
-    //weather.setMaximumAge(weatherFetch * 60 * 1000);
+    getWeather();
   }
 }
 simpleSettings.initialize(settingsCallback);
