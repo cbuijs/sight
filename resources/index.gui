@@ -1,6 +1,6 @@
 <svg>
   <rect id="background" />
-  <text id="txtVersion" class="version-text">v0.991</text>
+  <text id="txtVersion" class="version-text">v0.992</text>
   <text id="txtInfo" class="info-text" />
   <text id="txtBattery" class="battery-text" />
   <rect class="divider divider-one" />

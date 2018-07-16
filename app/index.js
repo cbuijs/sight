@@ -40,6 +40,8 @@ weather.setApiKey("");
 weather.setMaximumAge(weatherFetch * 60 * 1000); // 30 Minutes
 weather.setFeelsLike(false);
 
+getWeather();
+
 weather.onsuccess = (data) => {
   var temp;
   console.log("Weather is " + JSON.stringify(data));
@@ -53,9 +55,14 @@ weather.onsuccess = (data) => {
   let time = Date().replace(/\s+/," ").split(" ")[4].split(":");
   let displaytime = time[0] + ":" + time[1];
   let desc = data.description;
-  txtWeather2.text = displaytime + " " + desc; //.substring(0,);
-  if ( txtWeather2.getBBox().x < 93 ) {
-    txtWeather2.text = displaytime + " " + desc.replace(/[\sAaEeIiOoUu]/g, ""); //.substring(0,);
+  txtWeather2.text = displaytime + " " + desc;
+  console.log("WEATHERX: " + desc + " " + txtWeather2.getBBox().x);
+  if ( txtWeather2.getBBox().x < 98 ) {
+    txtWeather2.text = displaytime + " " + desc.replace(/[\s]/g, "");
+    console.log("WEATHERX: " + desc + " " + txtWeather2.getBBox().x);
+    if ( txtWeather2.getBBox().x < 98 ) {
+      txtWeather2.text = displaytime + " " + desc.replace(/[\sAaEeIiOoUu]/g, "");
+    }
   }
 }
 
