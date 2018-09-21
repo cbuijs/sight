@@ -7,24 +7,12 @@
 }
 
 .version-text {
-  font-family: Seville-Condensed;
-  font-size: 20;
+  font-family: Seville-Bold-Condensed;
+  font-size: 24;
   text-anchor: start;
   text-length: 4;
   x: 8%;
-  y: 8%;
-  width: 100%;
-  height: 100%;
-  fill: #646464;
-}
-
-.info-text {
-  font-family: Seville-Condensed;
-  font-size: 20;
-  text-anchor: middle;
-  text-length: 4;
-  x: 8%;
-  y: 50%;
+  y: 9%;
   width: 100%;
   height: 100%;
   fill: #646464;
@@ -32,23 +20,35 @@
 
 .battery-text {
   font-family: Seville-Bold-Condensed;
-  font-size: 20;
-  text-anchor: end;
-  text-length: 4;
-  x: 92%;
-  y: 8%;
+  font-size: 24;
+  text-anchor: middle;
+  text-length: 5;
+  x: 50%;
+  y: 9%;
   width: 100%;
   height: 100%;
   fill: #646464;
 }
 
+.weathertime-text {
+  font-family: Seville-Bold-Condensed;
+  font-size: 24;
+  text-anchor: end;
+  text-length: 6;
+  x: 92%;
+  y: 9%;
+  width: 100%;
+  height: 100%;
+  fill: #FFFFFF;
+}
+
 .clock-text {
   font-family: Fabrikat-Black;
-  font-size: 112;
+  font-size: 116;
   text-anchor: middle;
   text-length: 5;
   x: 50%;
-  y: 59%;
+  y: 60%;
   width: 100%;
   height: 100%;
   fill: #FA1E43;
@@ -56,23 +56,47 @@
   
 .weather-temp {
   font-family: Seville-Bold-Condensed;
-  font-size: 60;
+  font-size: 70;
   text-anchor: start;
-  text-length: 5;
-  x: 8%;
-  y: 26%;
-  width: 32%;
+  text-length: 6;
+  x: 18;
+  y: 82;
+  width: 40%;
+  height: 100%;
+  fill: #FFFFFF;
+}
+
+.weather-degree {
+  font-family: Seville-Bold-Condensed;
+  font-size: 70;
+  text-anchor: start;
+  text-length: 2;
+  x: 29%;
+  y: 82;
+  width: 10%;
+  height: 100%;
+  fill: #FFFFFF;
+}
+
+.weather-unit {
+  font-family: Seville-Bold-Condensed;
+  font-size: 32;
+  text-anchor: start;
+  text-length: 2;
+  x: 29%;
+  y: 82;
+  width: 10%;
   height: 100%;
   fill: #FFFFFF;
 }
 
 .weather-text1 {
   font-family: Seville-Bold-Condensed;
-  font-size: 28;
+  font-size: 32;
   text-anchor: end;
-  text-length: 20;
-  x: 92%;
-  y: 18%;
+  text-length: 30;
+  x: 93%;
+  y: 56;
   width: 56%;
   height: 100%;
   fill: #FFFFFF;
@@ -80,23 +104,23 @@
 
 .weather-text2 {
   font-family: Seville-Condensed;
-  font-size: 28;
+  font-size: 32;
   text-anchor: end;
-  text-length: 35;
-  x: 92%;
-  y: 26%;
-  width: 63%;
+  text-length: 40;
+  x: 93%;
+  y: 82;
+  width: 56%;
   height: 100%;
   fill: #FFFFFF;
 }
 
 .date-text {
   font-family: Seville-Bold-Condensed;
-  font-size: 36;
+  font-size: 45;
   text-anchor: middle;
   text-length: 10;
   x: 50%;
-  y: 76%;
+  y: 77%;
   width: 100%;
   height: 100%;
   fill: #FFFFFF;

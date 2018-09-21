@@ -1,12 +1,14 @@
 <svg>
   <rect id="background" />
-  <text id="txtVersion" class="version-text">v0.992</text>
-  <text id="txtInfo" class="info-text" />
+  <text id="txtVersion" class="version-text">v0.9991</text>
   <text id="txtBattery" class="battery-text" />
+  <text id="txtWeathertime" class="weathertime-text" />
   <rect class="divider divider-one" />
   <text id="txtWeather1" class="weather-text1" />
   <text id="txtWeather2" class="weather-text2" />
   <text id="txtWeathertemp" class="weather-temp" />
+  <text id="txtWeatherdegree" class="weather-degree">°</text>
+  <text id="txtWeatherunit" class="weather-unit">C</text>
   <rect class="divider divider-two" />
   <text id="txtTime" class="clock-text" />
   <rect class="divider divider-three" />

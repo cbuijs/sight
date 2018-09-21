@@ -9,7 +9,7 @@ import * as fs from "fs";
 import * as messaging from "messaging";
 
 const SETTINGS_TYPE = "cbor";
-const SETTINGS_FILE = "settings.cbor";
+const SETTINGS_FILE = "sightsettings.cbor";
 
 let settings;
 let onsettingschange;
@@ -22,10 +22,10 @@ export function initialize(callback) {
 
 // Received message containing settings data
 messaging.peerSocket.addEventListener("message", function(evt) {
+  settings = loadSettings();
   console.log("App received: " + evt.data.key + ":" + evt.data.value);
-  //console.log("Old Settings: " + JSON.stringify(settings));
   settings[evt.data.key] = evt.data.value;
-  //console.log("New Settings: " + JSON.stringify(settings));
+  saveSettings();
   onsettingschange(settings);
 })
 

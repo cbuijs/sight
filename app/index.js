@@ -13,10 +13,12 @@ let dividers = document.getElementsByClassName("divider");
 let txtTime = document.getElementById("txtTime");
 let txtDate = document.getElementById("txtDate");
 let txtWeathertemp = document.getElementById("txtWeathertemp");
+let txtWeatherdegree = document.getElementById("txtWeatherdegree");
+let txtWeatherunit = document.getElementById("txtWeatherunit");
 let txtWeather1 = document.getElementById("txtWeather1");
 let txtWeather2 = document.getElementById("txtWeather2");
 let txtBattery = document.getElementById("txtBattery");
-let txtInfo = document.getElementById("txtInfo");
+let txtWeathertime = document.getElementById("txtWeathertime");
 let txtVersion = document.getElementById("txtVersion");
 let txtHRM = document.getElementById("txtHRM");
 let iconHRM = document.getElementById("iconHRM");
@@ -27,8 +29,6 @@ let statsCycleItems = statsCycle.getElementsByClassName("cycle-item");
 let weather = new Weather();
 
 let weatherUnits = "C";
-let weatherFetch = 30; // Pull every thirty-minutes
-let weatherTimeleft = 0;
 
 let currentTheme = "default";
 let customTheme;
@@ -37,7 +37,7 @@ const GRANULARITY = "minutes";
 
 weather.setProvider("yahoo"); 
 weather.setApiKey("");
-weather.setMaximumAge(weatherFetch * 60 * 1000); // 30 Minutes
+weather.setMaximumAge(30 * 60 * 1000); // 30 Minutes
 weather.setFeelsLike(false);
 
 getWeather();
@@ -50,20 +50,39 @@ weather.onsuccess = (data) => {
   } else {
     temp = data.temperatureF;
   }
-  txtWeathertemp.text = Math.round(temp) + "°";
-  txtWeather1.text = data.location; //.substring(0,30);
+  //temp = "999";
+
   let time = Date().replace(/\s+/," ").split(" ")[4].split(":");
-  let displaytime = time[0] + ":" + time[1];
+  txtWeathertime.text = time[0] + ":" + time[1];
+  
   let desc = data.description;
-  txtWeather2.text = displaytime + " " + desc;
-  console.log("WEATHERX: " + desc + " " + txtWeather2.getBBox().x);
-  if ( txtWeather2.getBBox().x < 98 ) {
-    txtWeather2.text = displaytime + " " + desc.replace(/[\s]/g, "");
-    console.log("WEATHERX: " + desc + " " + txtWeather2.getBBox().x);
-    if ( txtWeather2.getBBox().x < 98 ) {
-      txtWeather2.text = displaytime + " " + desc.replace(/[\sAaEeIiOoUu]/g, "");
+  txtWeather1.text = data.location; //.substring(0,30);
+  txtWeather2.text = desc;
+  
+  //txtWeather1.text = "..................................";
+  //txtWeather2.text = "..................................";
+  //console.log("WEATHERX1: " + data.location + " " + txtWeather1.getBBox().x);
+  if ( txtWeather1.getBBox().x < txtWeatherdegree.getBBox().x + 18 ) {
+    txtWeather1.text = data.location.replace(/[\s]/g, "");
+    //console.log("WEATHERX1: " + data.location + " " + txtWeather1.getBBox().x);
+    if ( txtWeather1.getBBox().x < txtWeatherdegree.getBBox().x + 18 ) {
+      txtWeather1.text = data.location.replace(/[\sAaEeIiOoUu\-]/g, "");
     }
   }
+  //console.log("WEATHERX2: " + desc + " " + txtWeather2.getBBox().x);
+  if ( txtWeather2.getBBox().x < txtWeatherdegree.getBBox().x + 16 ) {
+    txtWeather2.text = desc.replace(/[\s]/g, "");
+    //console.log("WEATHERX2: " + desc + " " + txtWeather2.getBBox().x);
+    if ( txtWeather2.getBBox().x < txtWeatherdegree.getBBox().x + 16 ) {
+      txtWeather2.text = desc.replace(/[\sAaEeIiOoUu\-]/g, "");
+    }
+  }
+  
+  txtWeathertemp.text = Math.round(temp);
+  txtWeatherdegree.x = txtWeathertemp.getBBox().width + 17;
+  txtWeatherdegree.text = '°'
+  txtWeatherunit.x = txtWeathertemp.getBBox().width + 20;
+  txtWeatherunit.text = weatherUnits;
 }
 
 weather.onerror = (error) => {
@@ -83,7 +102,6 @@ messaging.peerSocket.close = () => {
 
 function getWeather() {
   console.log("Getting The Weather");
-  weatherTimeleft = weatherFetch;
   weather.fetch();
 }
 
@@ -92,24 +110,25 @@ function clockCallback(data) {
   console.log("Updating Time/Date " + data.time + " " + data.date);
   txtTime.text = data.time;
   txtDate.text = data.date;
+  
+  let level = battery.chargeLevel
 
-  txtBattery.text = battery.chargeLevel + "%";
-  console.log("Battery Chargelevel: " + battery.chargeLevel + "%");
-  if (battery.chargelevel < 15) {
+  txtBattery.text = level + "%";
+  
+  console.log("Battery Chargelevel: " + level + "%");
+  if ( level < 26 ) {
     txtBattery.style.fill = "red";
+    data.colorBattery = "red";
   } else {
-    if (battery.chargelevel < 40) {
-      txtBattery.style.fill = "orange"; 
+    if ( level < 51 ) {
+      txtBattery.style.fill = "orange";
+      data.colorBattery = "orange";
     } else {
-      txtBattery.style.fill = "lime";
+      txtBattery.style.fill = "darkgreen";
+      data.colorBattery = "darkgreen";
     }
   }
-  weatherTimeleft--;
-  if (weatherTimeleft < 1) {
-    console.log("Fetching Weather Interval");
-    getWeather();
-  }
-  console.log("Weather Time Left: " + weatherTimeleft + " minutes");  
+  getWeather();
 }
 simpleClock.initialize(GRANULARITY, "longDate", clockCallback);
 
@@ -178,6 +197,9 @@ function settingsCallback(data) {
         data.colorImgHRM = "lime"
         txtWeathertemp.style.fill = "lime";
         data.colorWeathertemp = "lime";
+        txtWeatherunit.style.fill = "lime";
+        txtWeatherdegree.style.fill = "lime"
+        txtWeathertime.style.fill = "lime";
         txtWeather1.style.fill = "lime";
         data.colorWeather = "lime";
         txtWeather2.style.fill = "lime";
@@ -211,6 +233,10 @@ function settingsCallback(data) {
         data.colorImgHRM = "red"
         txtWeathertemp.style.fill = "red";
         data.colorWeathertemp = "red";
+        txtWeatherunit.style.fill = "red";
+        txtWeatherdegree.style.fill = "red";
+        data.colorWeatherunit = "red";
+        txtWeathertime.style.fill = "red";
         txtWeather1.style.fill = "red";
         data.colorWeather = "red";
         txtWeather2.style.fill = "red";
@@ -248,6 +274,9 @@ function settingsCallback(data) {
         data.colorImgHRM = "red"
         txtWeathertemp.style.fill = "yellow";
         data.colorWeathertemp = "yellow";
+        txtWeatherunit.style.fill = "yellow";
+        txtWeatherdegree.style.fill = "yellow";
+        txtWeathertime.style.fill = "white";
         txtWeather1.style.fill = "white";
         data.colorWeather = "white";
         txtWeather2.style.fill = "white";
@@ -257,12 +286,6 @@ function settingsCallback(data) {
         data.colorBattery = "dimgrey";
         break;
     }
-  }
-  
-  if (data.updateInterval !== weatherFetch) {
-    console.log("Weather Interval set to " + data.updateInterval + " minutes");
-    getWeather();
-    weatherFetch = data.updateInterval;
   }
   
   if (data.colorTheme === "custom") {
@@ -303,16 +326,18 @@ function settingsCallback(data) {
     
     if (data.colorWeathertemp) {
       txtWeathertemp.style.fill = data.colorWeathertemp;
+      txtWeatherdegree.style.fill = data.colorWeathertemp;
+      txtWeatherunit.style.fill = data.colorWeathertemp;
     }
   
     if (data.colorWeather) {
       txtWeather1.style.fill = data.colorWeather;
       txtWeather2.style.fill = data.colorWeather;
+      txtWeathertime.style.fill = data.colorWeather;
     }
   
     if (data.colorBattery) {
       txtBattery.style.fill = data.colorBattery;   
-      txtInfo.style.fill = data.colorBattery;
       txtVersion.style.fill = data.colorBattery;
     }
   }

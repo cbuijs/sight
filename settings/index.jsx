@@ -78,20 +78,6 @@ function mySettings(props) {
         />
       )}
       <Select
-        label="Weather Update Interval"
-        settingsKey="updateInterval"
-        options={[
-          {name:"1 minutes (for testing only)", value:"1"},
-          {name:"2 minutes (for testing only)", value:"2"},
-          {name:"5 minutes", value:"5"},
-          {name:"15 minutes", value:"15"},
-          {name:"30 minutes", value:"30"},
-          {name:"1 hour", value:"60"},
-          {name:"2 hour", value:"120"},
-          {name:"4 hour", value:"240"}
-        ]}
-      />
-      <Select
         label="Color Theme"
         settingsKey="colorTheme"
         options={[
