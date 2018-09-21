@@ -33,8 +33,6 @@ let weatherUnits = "C";
 let currentTheme = "default";
 let customTheme;
 
-const GRANULARITY = "minutes";
-
 weather.setProvider("yahoo"); 
 weather.setApiKey("");
 weather.setMaximumAge(30 * 60 * 1000); // 30 Minutes
@@ -130,7 +128,7 @@ function clockCallback(data) {
   }
   getWeather();
 }
-simpleClock.initialize(GRANULARITY, "longDate", clockCallback);
+simpleClock.initialize("minutes", "longDate", clockCallback);
 
 /* ------- ACTIVITY --------- */
 function activityCallback(data) {
@@ -142,7 +140,7 @@ function activityCallback(data) {
     img.x = txt.getBBox().x - txt.parent.getBBox().x - img.width - 2;
   });
 }
-simpleActivity.initialize(GRANULARITY, activityCallback);
+simpleActivity.initialize("seconds", activityCallback);
 
 /* -------- HRM ------------- */
 function hrmCallback(data) {
