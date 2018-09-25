@@ -34,6 +34,7 @@ let activityData = () => {
     elevationGain: getElevationGain(),
     activeMinutes: getActiveMinutes()
   };
+}
 
 function tickHandler(evt) {
   activityCallback(activityData());

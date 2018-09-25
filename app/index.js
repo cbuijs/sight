@@ -139,6 +139,7 @@ function activityCallback(data) {
     // Reposition the activity icon to the left of the variable length text
     img.x = txt.getBBox().x - txt.parent.getBBox().x - img.width - 2;
   });
+  getWeather();
 }
 simpleActivity.initialize("seconds", activityCallback);
 
