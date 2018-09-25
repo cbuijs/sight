@@ -13,6 +13,6 @@ If you want to try it out, you can click the below link on your mobile device wh
 Install: <a href="https://gam.fitbit.com/gallery/clock/bd192470-32bf-4507-9aca-e0fc9a9e0a38">Sight ClockFace</a>
 
 
-![Alt text](https://github.com/cbuijs/sight/blob/master/screenshots/Sight-ScreenShot-Default-Theme.png "ScreenShot")
+![Alt text](https://github.com/cbuijs/sight/blob/master/screenshots/Default.png "ScreenShot")
 
 <b>Note:</b> This is just to get my hands dirty and learn how to make watch-faces on Fitbit devices. More to come probably :-).
